@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { loadImages } from '../../actions';
 import './styles.css';
+import Button from '../Button/Button.js';
+
 
 const key = '5f96323678d05ff0c4eb264ef184556868e303b32a2db88ecbf15746e6f25e02';
 
@@ -21,7 +23,7 @@ class ImageGrid extends Component {
     }
 
     render() {
-        const { images } = this.state;
+        const { images, error, isLoading } = this.state;
         return (
             <div className="content">
                 <section className="grid">
@@ -39,6 +41,13 @@ class ImageGrid extends Component {
                         </div>
                     ))}
                 </section>
+                {error && <div className="error">{JSON.stringify(error)}</div>}
+                <Button
+                    onClick={() => !isLoading && loadImages()}
+                    loading={isLoading}
+                >
+                    Load More
+                </Button>
             </div>
         );
     }
